@@ -52,13 +52,18 @@ function getTasks(){
 
 // Add a atask function
 function addTask(e){
-    if(!taskInput.value){
+
+    // trimming user input to remove all large spaces
+    let trimmed = taskInput.value;
+    trimmed = trimmed.trim();
+
+    if(!trimmed){
         alert('Enter a task first');
         e.preventDefault();
     } else {
         const li = document.createElement('li');
         li.className = 'collection-item';
-        li.appendChild(document.createTextNode(taskInput.value));
+        li.appendChild(document.createTextNode(trimmed));
         
         const link = document.createElement('a');
         link.className = 'delete-item secondary-content';
@@ -68,10 +73,10 @@ function addTask(e){
         taskList.appendChild(li);
 
         // Store tasks in LS event
-        storeTasksInLocalStorage(taskInput.value);
+        storeTasksInLocalStorage(trimmed);
 
         taskInput.value = '';
-    };
+    }
 
     e.preventDefault();
 };
